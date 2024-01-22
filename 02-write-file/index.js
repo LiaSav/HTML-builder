@@ -4,8 +4,9 @@ const readline = require('readline');
 
 const filePath = path.join(__dirname, 'text.txt');
 
-fs.writeFile(filePath, 'Hello', (err) => {
+fs.writeFile(filePath, '', (err) => {
     if (err) throw err;
+    console.log('Welcome!');
 
     const rl = readline.createInterface({
         input: process.stdin,
@@ -13,13 +14,10 @@ fs.writeFile(filePath, 'Hello', (err) => {
     });
 
     rl.on('line', (text) => {
-        fs.appendFile(filePath, '\n' + text, (err) => {
+        fs.appendFile(filePath, text + '\n', (err) => {
             if (err) throw err;
         });
     });
 
-    rl.on('close', () => {
-        console.log('Have a great day!');
-        process.exit(0);
-    });
-})
+    process.on('exit', () => console.log('Good luck learning Node.js!'));
+});
