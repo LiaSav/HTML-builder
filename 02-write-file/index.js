@@ -14,10 +14,18 @@ fs.writeFile(filePath, '', (err) => {
     });
 
     rl.on('line', (text) => {
-        fs.appendFile(filePath, text + '\n', (err) => {
-            if (err) throw err;
-        });
+        if (text.toLowerCase().trim() === 'exit') {
+            console.log('Good luck learning Node.js!');
+            process.exit();
+        } else {
+            fs.appendFile(filePath, text + '\n', (err) => {
+                if (err) throw err;
+            });
+        }
     });
 
-    process.on('exit', () => console.log('Good luck learning Node.js!'));
+    rl.on('close', () => {
+        console.log('Good luck learning Node.js!');
+        process.exit();
+    });
 });
